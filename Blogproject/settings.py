@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog_ai.apps.BlogApiConfig', #my blog_api application
+    'rest_framework', #restframe work for api
+    'rest_framework.authtoken', #for token based authentication
+    'corsheaders', #for cors
+    'django_filters', #for filtering
+    'rest_framework_simplejwt.token_blacklist'  #for token refreshing
 ]
 
 MIDDLEWARE = [
@@ -47,8 +53,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+] 
 
+#DRF related settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissions', #Grants access based on the model permissions
+        #'rest_framework.permissions.DjangoObjectPermissions', #Grants access to particular objects based on the model permissions
+    ]
+}
+
+#REST_FRAMEWORK['DEFAULT_PERMISSION_CLASSES'] = [
+   # 'rest_framework.permissions.DjangoModelPermissions',
+#]
 ROOT_URLCONF = 'Blogproject.urls'
 
 TEMPLATES = [
