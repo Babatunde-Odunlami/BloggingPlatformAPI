@@ -1,0 +1,56 @@
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+
+# Environments
+.env
+*.env
+
+# Virtual environments
+venv/
+env/
+*./virtualenv
+*.egg-info/
+*.eggs/
+pip-wheel-metadata/
+
+# Media and static files
+media/
+staticfiles/
+static/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Deployment files
+*.bak
+*.orig
+
+# Database migrations
+#db.sqlite3
+#*.bak
+#*.backup
+
+# Heroku-specific
+*.procfile
+
+# PostgreSQL
+pgdata/
+*.sql
+*.dump
