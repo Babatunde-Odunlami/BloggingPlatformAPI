@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,19 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog_ai.apps.BlogApiConfig', #my blog_api application
+    'blog_api.apps.BlogApiConfig', #my blog_api application
     'rest_framework', #restframe work for api
     'rest_framework.authtoken', #for token based authentication
-    'corsheaders', #for cors
+    #'corsheaders', #for cors
     'django_filters', #for filtering
-    'rest_framework_simplejwt.token_blacklist'  #for token refreshing
+    'rest_framework_simplejwt.token_blacklist',  #for token refreshing
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # Disable CSRF middleware for API 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -57,18 +57,20 @@ MIDDLEWARE = [
 
 #DRF related settings
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        ),
+        'rest_framework.authentication.BasicAuthentication',  # For basic auth
+        'rest_framework.authentication.SessionAuthentication',  # For session auth
+        'rest_framework.authentication.TokenAuthentication',  # For token-based auth
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny', #nevessary for curl post
         'rest_framework.permissions.DjangoModelPermissions', #Grants access based on the model permissions
         #'rest_framework.permissions.DjangoObjectPermissions', #Grants access to particular objects based on the model permissions
     ]
 }
 
-#REST_FRAMEWORK['DEFAULT_PERMISSION_CLASSES'] = [
-   # 'rest_framework.permissions.DjangoModelPermissions',
-#]
 ROOT_URLCONF = 'Blogproject.urls'
 
 TEMPLATES = [
@@ -93,10 +95,17 @@ WSGI_APPLICATION = 'Blogproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+from decouple import config 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME', default='your_database_name'),
+        'USER': config('DB_USER', default='your_database_user'),
+        'PASSWORD': config('DB_PASSWORD', default='your_database_password'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
@@ -141,3 +150,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'blog_api.Username'
+#LOGIN_REDIRECT_URL = '/dashboard/'  # Redirect after successful login

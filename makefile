@@ -30,3 +30,7 @@ clean:
 # Install dependencies
 install:
 	pip install -r requirements.txt
+
+# check all settings and file relationship of settings to local file like .env
+check:
+	$(DJANGO) check
