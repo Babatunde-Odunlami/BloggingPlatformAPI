@@ -4,8 +4,6 @@
 *.pyd
 __pycache__/
 
-# Django migrations
-*/migrations/*
 
 # SQLite database
 db.sqlite3
