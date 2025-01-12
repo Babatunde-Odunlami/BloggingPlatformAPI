@@ -1,5 +1,5 @@
 """
-URL configuration for Blogproject project.
+URL configuration for BlogProject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views  # To handle the redirect
+
+
+# Routers provide an easy way of automatically determining the URL conf.
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('blog_api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
+    path('', include('Blog.urls')), # for app specific api endpoints
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')), # for browsable api login and logout,
+    # Add login redirect for unauthenticated users
+    #path('login/', auth_views.LoginView.as_view(), name='login'),  # This ensures a login page is available
 ]

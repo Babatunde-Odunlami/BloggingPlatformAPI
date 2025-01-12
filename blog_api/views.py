@@ -20,7 +20,6 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 class UserList(generics.ListCreateAPIView):
     queryset = Username.objects.all()
     serializer_class = UserSerializer
-    template_name = 'blog_api/user_list.html'
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Username.objects.all()

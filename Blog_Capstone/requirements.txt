@@ -1,0 +1,25 @@
+asgiref==3.8.1
+astroid==3.3.6
+dill==0.3.9
+Django==5.1.4
+django-filter==24.3
+django_csp==3.8
+djangorestframework==3.15.2
+djangorestframework-simplejwt==5.3.1
+isort==5.13.2
+makefile==1.1.0
+Markdown @ git+https://github.com/Python-Markdown/markdown.git@7aace29bd33bc1734082b677c6f06aac0dcc6ac2
+mccabe==0.7.0
+pillow==11.0.0
+platformdirs==4.3.6
+psycopg2-binary==2.9.10
+PyJWT==2.10.1
+pylint==3.3.2
+pylint-django==2.6.1
+pylint-plugin-utils==0.8.2
+python-decouple==3.8
+python-dotenv==1.0.1
+sqlparse==0.5.3
+tomli==2.2.1
+tomlkit==0.13.2
+typing_extensions==4.12.2

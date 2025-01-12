@@ -1,0 +1,51 @@
+# Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Django migrations
+*/migrations/*
+
+# SQLite database
+db.sqlite3
+
+# .env file to store sensitive information
+.env
+
+# Media files
+/media/
+
+# Static files (if not collected)
+static/
+
+# PyCharm project files (if using PyCharm)
+.idea/
+
+# VS Code project files (if using VS Code)
+.vscode/
+
+# Pytest cache
+.pytest_cache/
+
+# Django static files during development
+staticfiles/
+
+# mypy static type checker
+.mypy_cache/
+
+# Coverage reports
+.coverage
+*.coveragerc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# local IDE files
+.idea/
+
+# other directories to ignore (add more as needed)
+api/
