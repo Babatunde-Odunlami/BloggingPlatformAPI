@@ -5,6 +5,8 @@ from .models import Post, CustomUser, Comment, Category
 from .serializers import PostSerializer, CustomUserSerializer, CommentSerializer, CategorySerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.permissions import BasePermission,SAFE_METHODS
+from rest_framework.pagination import PageNumberPagination
+
 
 #only one approach is required
 #create view to handle your endpoints logic: this approach requires manaually creating all related urls for each view
@@ -20,13 +22,20 @@ class IsAuthenticatedForWrite(BasePermission):
             return True  # No authentication required for creating a user (public access)
         # Require authentication for all other methods (PUT, GET, DELETE)
         return request.user and request.user.is_authenticated
-    
+
+#create class-based-views for CustomUser 
+class CustomUserPagination(PageNumberPagination):
+    page_size = 10  # Number of items per page
+    page_size_query_param = 'page_size'  # Optional, allows the client to set the page size
+    max_page_size = 30  # Optional, sets the maximum page size allowed
+
 #create class-based-views for CustomUser 
 class CustomUserList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticatedForWrite]
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     model = CustomUser
+    pagination_class = CustomUserPagination
 
 class CustomUserDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
@@ -34,12 +43,18 @@ class CustomUserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CustomUserSerializer
     model = CustomUser
 
+class PostPagination(PageNumberPagination):
+    page_size = 15  # Number of items per page
+    page_size_query_param = 'page_size'  # Optional, allows the client to set the page size
+    max_page_size = 50  # Optional, sets the maximum page size allowed
+
 #create class-based-views for Post
 class PostList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     model = Post
+    pagination_class = PostPagination
 
     def get_queryset (self):
         queryset = super().get_queryset()
