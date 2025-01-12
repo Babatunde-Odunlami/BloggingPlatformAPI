@@ -13,13 +13,10 @@ urlpatterns = [
     path('comments/<int:pk>/', CommentDetail.as_view(), name='comment-detail'),
     path('categorys/', CategoryList.as_view(), name='category-list'),
     path('categorys/<int:pk>/', CategoryDetail.as_view(), name='category-detail'),
-    path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
     #jwt tokens
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    # Login redirect (for unauthenticated users)
-    path('login/', include('django.contrib.auth.urls')),  # This will include the login view
+    #path('login/', include('django.contrib.auth.urls')),  # This will include the login view
 ]
 
 

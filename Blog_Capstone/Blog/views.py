@@ -89,37 +89,3 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     model = Category
-
-
-"""
-# create viewset for auto views creation: this approach has the CRUD operations compressed
-# each url is auto created with the router
-
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-from .models import CustomUser, Post, Comment
-from .serializers import CustomUserSerializer, PostSerializer, CommentSerializer
-from rest_framework.permissions import IsAuthenticated
-
-class CustomUserViewSet(viewsets.ModelViewSet):
-    queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
-    permission_classes = [IsAuthenticated]    # Apply IsAuthenticated permission
-
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]    # Apply IsAuthenticated permission
-
-class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated]    # Apply IsAuthenticated permission
-
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()  # Fetch all categories from the database
-    serializer_class = CategorySerializer  # Use the CategorySerializer to transform the model data
-    permission_classes = [IsAuthenticated]  # Optional: Restrict access to authenticated users
-
-    # You can add custom logic if needed, e.g., filtering, ordering, etc.
-"""
